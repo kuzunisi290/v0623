@@ -14,6 +14,7 @@ namespace v0623
     {
         int vx = -10;
         int vy = -10;
+        int score = 100;
         public Form1()
         {
             InitializeComponent();
@@ -21,24 +22,33 @@ namespace v0623
 
         private void timer1_Tick(object sender, EventArgs e)
         {
+            Point spos = MousePosition;
+            Point fpos = PointToClient(spos);
+            label3.Left = fpos.X - label3.Width / 2;
+            label3.Top = fpos.Y - label3.Height / 2;
+            //label3.Text = $"{fpos.X},{fpos.Y}";
+
             label1.Left += vx;
             label1.Top += vy;
             if (label1.Left < 0)
             {
-                vx = 10;
+                vx = Math.Abs(vx) * 11 / 10;
             }
             if (label1.Top < 0)
             {
-                vy = 10;
+                vy = Math.Abs(vy) * 11 / 10;
             }
             if (label1.Right > ClientSize.Width)
             {
-                vx = -10;
+                vx = -Math.Abs(vx) * 11 / 10;
             }
             if (label1.Bottom > ClientSize.Height)
             {
-                vy = -10;
+                vy = -Math.Abs(vy) * 11 / 10;
             }
+
+            score = score - 1;
+            label2.Text ="Score ";
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -50,6 +60,11 @@ namespace v0623
         {
             MessageBox.Show("葛西達也");
             timer1.Enabled = false;
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
